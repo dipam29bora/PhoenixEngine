@@ -16,8 +16,8 @@ namespace phoenix
 			m_width = width;
 			m_height = height;
 
+			if (!init())
 				init();
-			//if (!init())
 			
 		}
 
@@ -46,8 +46,13 @@ namespace phoenix
 			}
 
 			glfwMakeContextCurrent(m_window);
-			
 			glfwSetWindowSizeCallback(m_window, ResizeWindow);
+
+			if (glewInit() != GLEW_OK)
+			{
+				std::cout << "Enable to Initialize GLEW!" << std::endl;
+				return false;
+			}
 
 			return true;
 		}
