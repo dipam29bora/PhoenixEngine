@@ -6,7 +6,7 @@ int main()
 	using namespace phoenix;
 	using namespace graphics;
 
-	Window window("Phoenix Engine", 800, 600);
+	Window window("Phoenix Engine", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
 	GLuint vao;
@@ -16,6 +16,10 @@ int main()
 	while (!window.Closed())
 	{
 		window.Clear();
+		
+		double x, y;
+		window.MousePosition(x, y);
+		std::cout << x << " , " << y << std::endl;
 
 #if 0
 		glBegin(GL_TRIANGLES);
