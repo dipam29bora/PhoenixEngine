@@ -1,10 +1,12 @@
 #include "graphics/window.h"
+#include "maths/vec2.h"
 
 int main()
 {
 
 	using namespace phoenix;
 	using namespace graphics;
+	using namespace maths;
 
 	Window window("Phoenix Engine", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
@@ -13,15 +15,21 @@ int main()
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	vec2 a(9,10);
+	vec2 b(9, 10);
+	
+	std::cout << (a==b?1:0) << std::endl;
+
 	while (!window.Closed())
 	{
 		window.Clear();
 		
+
+#if 0
 		double x, y;
 		window.MousePosition(x, y);
 		std::cout << x << " , " << y << std::endl;
-
-#if 0
+		
 		glBegin(GL_TRIANGLES);
 		glVertex2f(-0.5f, -0.5f);
 		glVertex2f( 0.0f,  0.5f);
