@@ -1,5 +1,6 @@
 #include "graphics/window.h"
-#include "maths/vec2.h"
+//#include "maths/vec2.h"
+#include "maths/math_func.h"
 
 int main()
 {
@@ -20,6 +21,8 @@ int main()
 	
 	std::cout << (a==b?1:0) << std::endl;
 
+	mat4 translate = mat4::Transtation(vec3(2, 3, 4));
+	translate *= mat4::identity();
 	while (!window.Closed())
 	{
 		window.Clear();
