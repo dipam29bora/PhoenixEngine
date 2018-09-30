@@ -9,7 +9,13 @@ namespace phoenix
 	{
 		struct mat4
 		{
-			float elements[4 * 4];
+			union 
+			{
+				//Both of these two addressing to the same memory address and  the size is of 64 bytes
+				//We have to  make the default default constructor of vec4 class 
+				float elements[4 * 4];
+				vec4 Columns[4];
+			};
 
 			mat4();
 			mat4(float diagonal);

@@ -5,13 +5,15 @@ namespace phoenix
 	namespace maths
 	{
 
+		/*
+		No need of this constructor because we have already a default constructor
 		vec4::vec4()
 		{
 			x = 0.0F;
 			y = 0.0f;
 			z = 0.0f;
 			w = 0.0f;
-		}
+		}*/
 
 		vec4::vec4(const float& X, const float& Y, const float& Z, const float& W )
 		{

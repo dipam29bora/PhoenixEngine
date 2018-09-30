@@ -28,7 +28,7 @@ int main()
 		window.Clear();
 		
 
-#if 0
+#if 1
 		double x, y;
 		window.MousePosition(x, y);
 		std::cout << x << " , " << y << std::endl;
