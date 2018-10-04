@@ -1,6 +1,6 @@
 #include "graphics/window.h"
-//#include "maths/vec2.h"
 #include "maths/math_func.h"
+#include "graphics/Shader.h"
 
 int main()
 {
@@ -12,35 +12,42 @@ int main()
 	Window window("Phoenix Engine", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
 
-	vec2 a(9,10);
-	vec2 b(9, 10);
+
+
+	GLfloat vertices[] =
+	{
+		 0.0f,  0.0f, 0.0f,
+		10.0f,  0.0f, 0.0f,
+		10.0f,  4.0f, 0.0f,
+		10.0f,  4.0f, 0.0f,
+		 0.0f,  4.0f, 0.0f,
+		 0.0f,  0.0f, 0.0f
+	};
+
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+
+	mat4 ortho = mat4::Orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+
+	Shader shader("src/Shader/vertex.vert", "src/Shader/Fragment.frag");
+	shader.Enable();
 	
-	std::cout << (a==b?1:0) << std::endl;
+	//glUniformMatrix4fv(glGetUniformLocation(shader.m_shaderID, "projectionMatrix"), 1, GL_FALSE, ortho.elements);
+	shader.SetUniformMat4("projectionMatrix", ortho);
+	//shader.SetUniformMat4("modelMatrix", mat4::Rotation(45.0f, vec3(0, 0, 1)));
 
-	mat4 translate = mat4::Transtation(vec3(2, 3, 4));
-	translate *= mat4::identity();
+	shader.SetUniform2f("light_pos", vec2(5.0f, 2.0f));
+	shader.SetUniform4f("colour", vec4(0.0f, 1.0f, 0.0f, 1.0f));
+
 	while (!window.Closed())
 	{
 		window.Clear();
-		
-
-#if 1
-		double x, y;
-		window.MousePosition(x, y);
-		std::cout << x << " , " << y << std::endl;
-		
-		glBegin(GL_TRIANGLES);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f( 0.0f,  0.5f);
-		glVertex2f( 0.5f, -0.5f);
-		glEnd();
-#endif
-
-		glDrawArrays(GL_ARRAY_BUFFER, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		window.Update();
 	}
 
